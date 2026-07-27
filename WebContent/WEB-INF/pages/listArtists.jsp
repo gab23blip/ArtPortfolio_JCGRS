@@ -6,18 +6,18 @@
 </head>
 
 <body>
+<c:forEach var="artist" items = "${sessionScope.artists}">
     <div class="win95-box artwork-card">
         <div class="win95-header">
             <span>Artwork_Viewer.exe</span>
             <span>X</span>
         </div>
 
-        <!-- dummy artwork info  -->
         <div class="artwork-info">
-            <div class="artist-name">Artist: @${searchedArtist}</div>
+            <div class="artist-name">Artist: @${artist}</div>
         </div>
     </div>
-
+</c:forEach>
 
 
 </body>

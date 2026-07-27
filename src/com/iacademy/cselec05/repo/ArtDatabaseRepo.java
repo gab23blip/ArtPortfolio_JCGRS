@@ -7,7 +7,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /*
 * Few changes here -- Juan Amado Cleto
@@ -136,4 +138,55 @@ public class ArtDatabaseRepo
         }
         return posts;
     }
+
+    // The reason why it is a set class is because I do not want any wasted memory
+    // This will be called in ListArtistsServlet
+    public Set<String> getArtists() {
+        // Selects only the artist name column from every row in the table
+        String retrieveArtistQuery = "SELECT artist_name FROM artist";
+        Set<String> artists = new HashSet<>();
+
+        try (Connection connection = DBConnection.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(retrieveArtistQuery);
+             ResultSet resultSet = preparedStatement.executeQuery()) {
+
+            // Loop through every single artist row in the database
+            while (resultSet.next()) {
+                artists.add(resultSet.getString("artist_name"));
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return artists;
+    }
+
+    // And besides we are only aiming to get the String here to list the artists
+    // We are going to make it simple -- we are not going to use a set but rather we are going to use
+    // a string -- this function returns a string named artistName.
+    // This is for searching by artist name
+    public String getArtist(String artistName) {
+
+        // retrieve artist query limit 1 gives us only -- its there in the sql string
+        String retrieveArtistQuery = "SELECT artist_name FROM artist WHERE artist_name = ? LIMIT 1";
+
+        try (Connection connection = DBConnection.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(retrieveArtistQuery)) {
+
+            preparedStatement.setString(1, artistName);
+
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                // if found return
+                if (resultSet.next()) {
+                    return resultSet.getString("artist_name"); // Returns the found name
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return null; // Returns null if the artist does not exist
+    }
+
 }

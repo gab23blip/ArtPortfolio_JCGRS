@@ -26,7 +26,11 @@
                     <a href="${pageContext.request.contextPath}/profile/user-activity/search-artwork-by-artist">See other People's works</a>
                 </li>
                 <li>
-                    <a>Search Artist</a>
+                    <a href="${pageContext.request.contextPath}/profile/user-activity/search-artist">Search Artist</a>
+                </li>
+                <li>
+                    <!-- to do List artists here use a set if any duplicates within the table appears -->
+                    <a>List Artist</a>
                 </li>
                 <li>
                     <a>Home feed</a>

@@ -146,6 +146,36 @@
         <url-pattern>/profile/user-activity/result-artwork-by-artist</url-pattern>
     </servlet-mapping>
 
+    <!-- Search Artist Servlet -->
+    <servlet>
+        <servlet-name>SearchArtistServlet</servlet-name>
+        <servlet-class>com.iacademy.cselec05.userActivities.SearchArtistServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>SearchArtistServlet</servlet-name>
+        <url-pattern>/profile/user-activity/search-artist</url-pattern>
+    </servlet-mapping>
+
+    <!-- Result Artist Servlet -->
+    <servlet>
+        <servlet-name>ResultArtistServlet</servlet-name>
+        <servlet-class>com.iacademy.cselec05.userActivities.ResultArtistServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ResultArtistServlet</servlet-name>
+        <url-pattern>/profile/user-activity/result-artist</url-pattern>
+    </servlet-mapping>
+
+    <!-- List Servlet -->
+    <servlet>
+        <servlet-name>ListArtistsServlet</servlet-name>
+        <servlet-class>com.iacademy.cselec05.userActivities.ListArtistsServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ListArtistsServlet</servlet-name>
+        <url-pattern>/profile/user-activity/list-artists</url-pattern>
+    </servlet-mapping>
+
     <!-- deprecated Servlet -->
     <servlet>
         <servlet-name>InsertServlet</servlet-name>
