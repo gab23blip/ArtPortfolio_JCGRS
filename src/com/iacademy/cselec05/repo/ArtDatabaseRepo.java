@@ -90,6 +90,7 @@ public class ArtDatabaseRepo
                 retrievePosts.setArtName(result.getString("art_name"));
                 retrievePosts.setArtistName(result.getString("artist_name"));
                 retrievePosts.setArtPhoto(result.getBytes("art_photo"));
+                retrievePosts.setLikeCount(result.getInt("like_count"));
                 tempPost.add(retrievePosts);
             }
         }
@@ -126,9 +127,11 @@ public class ArtDatabaseRepo
             while (result.next())
             {
                 ArtDomain retrievePosts = new ArtDomain();
+                retrievePosts.setArtistId(result.getInt("artist_id"));
                 retrievePosts.setArtName(result.getString("art_name"));
                 retrievePosts.setArtistName(result.getString("artist_name"));
                 retrievePosts.setArtPhoto(result.getBytes("art_photo")); // ANOTHER PROBLEM SOLVED
+                retrievePosts.setLikeCount(result.getInt("like_count"));
                 posts.add(retrievePosts);
             }
         }

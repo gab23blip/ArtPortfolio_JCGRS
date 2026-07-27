@@ -175,4 +175,30 @@ public class UserDAO {
         }
         return false; // I moved it here
     }
+
+    // This will be used to retreive ID from the database
+    public int getUserIdFromDatabase(String email) {
+        int userId = -1;
+
+        String sql = "SELECT user_id FROM users WHERE email = ?";
+
+        try (
+                Connection conn = DBConnection.getConnection();
+                PreparedStatement stmt = conn.prepareStatement(sql)
+        ) {
+
+            stmt.setString(1, email);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    userId = rs.getInt("user_id");
+                }
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return userId;
+    }
 }

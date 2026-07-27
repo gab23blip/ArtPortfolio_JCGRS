@@ -176,6 +176,17 @@
         <url-pattern>/profile/user-activity/list-artists</url-pattern>
     </servlet-mapping>
 
+    <!-- Like Servlet -->
+    <servlet>
+        <servlet-name>LikeServlet</servlet-name>
+        <servlet-class>com.iacademy.cselec05.userActivities.LikeServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>LikeServlet</servlet-name>
+        <url-pattern>/like</url-pattern>
+    </servlet-mapping>
+
     <!-- deprecated Servlet -->
     <servlet>
         <servlet-name>InsertServlet</servlet-name>

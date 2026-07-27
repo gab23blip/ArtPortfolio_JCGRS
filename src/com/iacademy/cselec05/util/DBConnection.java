@@ -19,7 +19,7 @@ public class DBConnection {
     // So far we are going to use a local server for the database handshake and binary reading stuff
     private static final String URL = "jdbc:mysql://localhost:3306/javaee1_db"; // Changed to javaee1_db
     private static final String USER = "root";
-    private static final String PASS = ""; // Change password
+    private static final String PASS = "89antaraNus"; // Change password
 
     // Alright props that we made it static so that is going in one memory address or something
     static {

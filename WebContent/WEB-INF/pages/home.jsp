@@ -47,6 +47,7 @@
                 <div class="artwork-title">Title: "Retro Dreams"</div>
                 <p>Posted: Oct 24, 1995</p>
             </div>
+
         </div>
         <!--
         <c:forEach var="Feed" items = "${insert}">
@@ -66,11 +67,17 @@
             <img src = "data:image/png;base64,${Feed.convertedPicture}">
 
             <!-- dummy artwork info  -->
+            <!-- next time do not have div tag for texts -->
             <div class="artwork-info">
                 <div class="artist-name">Artist: @${Feed.artistName}</div>
                 <div class="artwork-title">Title: "${Feed.artName}"</div>
                 <p>Posted: Oct 24, 1995</p>
+                <div class="likeCount">Number of likes: ${Feed.likeCount}</div>
             </div>
+            <form action="like" method="post">
+                <input type="hidden" name="artistId" value="${Feed.artistId}">
+                <button type="submit">Like</button>
+            </form>
         </div>
         </c:forEach>
 
