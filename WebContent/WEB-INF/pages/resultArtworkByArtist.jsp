@@ -21,6 +21,10 @@
             <div class="artist-name">Artist: @${Feed.artistName}</div>
             <div class="artwork-title">Title: "${Feed.artName}"</div>
             <p>Posted: Oct 24, 1995</p>
+            <form action="like" method="post">
+                <input type="hidden" name="artistId" value="${Feed.artistId}">
+                <button type="submit">Like</button>
+            </form>
         </div>
     </div>
 </c:forEach>
