@@ -30,10 +30,10 @@
                 </li>
                 <li>
                     <!-- to do List artists here use a set if any duplicates within the table appears -->
-                    <a>List Artist</a>
+                    <a href="${pageContext.request.contextPath}/profile/user-activity/list-artists">List Artist</a>
                 </li>
                 <li>
-                    <a>Home feed</a>
+                    <a href="${pageContext.request.contextPath}/home">Home feed</a>
                 </li>
             </ul>
         </div>
