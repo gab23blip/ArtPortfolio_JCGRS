@@ -16,7 +16,7 @@ if (savedTheme) {
 }
 
 /* =========================================
-   Interactive Animations & Effects
+   Interactive Animations, Effects & Form Logic
    ========================================= */
 // This runs the exact second the HTML finishes loading
 document.addEventListener("DOMContentLoaded", () => {
@@ -43,7 +43,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     /* =========================================
-       Glitch Effect
+       2. Glitch Effect
        ========================================= */
     // Find all the artwork images
     const artworks = document.querySelectorAll('.artwork-card img');
@@ -59,6 +59,38 @@ document.addEventListener("DOMContentLoaded", () => {
                 art.style.filter = 'none';
                 art.style.transform = 'none';
             }, 100); 
+        });
+    });
+
+    /* =========================================
+       3. Database Form Submission (AJAX & Merge)
+       ========================================= */
+    // We can use jQuery here safely since it is loaded in your JSP's <head>
+    $("#searchForm").on("submit", function(event) {
+        event.preventDefault(); // Prevents the page from reloading on submit
+
+        let searchInput = $("input[name='artistName']").val();
+
+        // AJAX call to fetch data without leaving the page
+        $.ajax({
+            type: "POST",
+            url: "your-server-endpoint", // Replace with your actual Java servlet URL
+            data: { artistName: searchInput },
+            success: function(newData) {
+                // Example of merging arrays using jQuery
+                let existingArtwork = ["Project 1", "Project 2"]; 
+                let fetchedArtwork = newData.results || []; // Assuming the server returns a JSON array
+                
+                // Merging the new data into the existing array
+                let mergedArtwork = $.merge(existingArtwork, fetchedArtwork);
+                
+                console.log("Merged Terminal Data:", mergedArtwork);
+                
+                // You would then write logic here to inject the merged data into your HTML
+            },
+            error: function() {
+                console.error("CONNECTION FAILED. CHECK NETWORK.");
+            }
         });
     });
 });

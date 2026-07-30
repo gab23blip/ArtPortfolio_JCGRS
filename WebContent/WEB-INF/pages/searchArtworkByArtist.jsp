@@ -8,15 +8,24 @@
 <html>
 <head>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/style.css">
-    <script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    
+    <!-- TWEAK 1: Link your JavaScript file (Make sure the path and filename match your setup) -->
+    <script src="${pageContext.request.contextPath}/js/main.js"></script>
 </head>
 
 <body>
-    <form  method = "post">
+    <!-- TWEAK 2: Added id="searchForm" -->
+    <form id="searchForm" method="post">
         <label>Type In Artist Name: </label>
-        <input type = "text" name = "artistName" required/>
-        <button type = "submit" id = "getFromDatabase">Submit</button>
+        <input type="text" name="artistName" required/>
+        <button type="submit" id="getFromDatabase">Submit</button>
     </form>
+
+    <!-- TWEAK 3: An empty container styled by your CSS where the JS will inject the merged data -->
+    <div id="goThroughArtWork"></div>
+</body>
+</html>
 
     <!--
     <c:set var = "show" value="${not empty postAspects}" />
