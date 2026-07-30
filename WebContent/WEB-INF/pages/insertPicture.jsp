@@ -22,7 +22,6 @@
         <input hidden type = "text" name ="unusualAction" value = "picture"/>
         <button type = "submit">Submit Details</button>
     </form>
+    <%@ include file="footer.jsp" %>
 </body>
-
-
 </html>

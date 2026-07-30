@@ -253,3 +253,25 @@ body::before {
     0% { background-position: 0 0; }
     100% { background-position: 0 100vh; }
 }
+
+/* Footer styles */
+.site-footer {
+    background: linear-gradient(90deg, rgba(36,0,70,0.9), rgba(225,0,152,0.9));
+    color: var(--text-header);
+    padding: 12px 20px;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+}
+
+.footer-inner {
+    max-width: 960px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.footer-left, .footer-right {
+    font-size: 0.9rem;
+}
