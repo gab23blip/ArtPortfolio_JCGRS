@@ -43,7 +43,7 @@ public class LikeServlet extends HttpServlet {
 
         // Some control flow in order to ensure that it is null
         if (user == null) {
-            response.sendRedirect("/home");
+            response.sendRedirect(request.getContextPath() + "/login");
             return;
         }
 
@@ -94,7 +94,7 @@ public class LikeServlet extends HttpServlet {
                 updateStmt.setInt(1, artistId);
                 updateStmt.executeUpdate();
 
-                response.getWriter().println("Liked!");
+                response.sendRedirect(request.getContextPath() + "/home");
 
             } else {
 
