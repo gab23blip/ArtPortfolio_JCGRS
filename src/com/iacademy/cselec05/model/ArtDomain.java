@@ -41,7 +41,8 @@ public class ArtDomain
     }
 
 
-
+    // THIS IS DANGEROUS -- Blob will take more memory in database
+    // Will slowdown XAMPP
     public String getConvertedPicture() {
         return convertedPicture;
     }
@@ -49,6 +50,7 @@ public class ArtDomain
     public void setConvertedPicture(String convertedPicture) {
         this.convertedPicture = convertedPicture;
     }
+
     public int getLikeCount() {
         return likeCount;
     }
@@ -57,19 +59,8 @@ public class ArtDomain
         this.likeCount = likeCount;
     }
 
-    public void setListOfLikers(ArrayList<Integer> listOfLikers) {
-        this.listOfLikers = listOfLikers;
-    }
-
-    public ArrayList<Integer> getListOfLikers() {
-        return listOfLikers;
-    }
-
     public void setArtistId(int artistId) {
         this.artistId = artistId;
     }
 
-    public int getArtistId() {
-        return artistId;
-    }
 }

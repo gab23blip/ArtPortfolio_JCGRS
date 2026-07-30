@@ -37,23 +37,33 @@ public class ArtDatabaseRepo
     // changed to uploadArt because this is what we are essentially doing 'uploading' and it is more meaningful
     public void uploadArt(ArtDomain insertArtPiece)
     {
+        // Set to null because we are going to utilize a close function from DBConnect
+        Connection connect = null;
+        PreparedStatement prepare = null;
         // good we have this statement
-        String insertQuery = "INSERT INTO artist(art_photo,artist_name,art_name) VALUES(?,?,?)";
+        String insertQuery = "INSERT INTO artist(art_photo,artist_name,art_name, like_count) VALUES(?,?,?, ?)";
 
         // will keep try catch -- it is a good habit to have  -- good job!
         try
         {
             // removed class for name because it is already declared inside the DBConnection
-            Connection connect = DBConnection.getConnection(); // Okay this is good that we have a static connection
-            PreparedStatement prepare = connect.prepareStatement(insertQuery); // preparedStatement here
+            connect = DBConnection.getConnection(); // Okay this is good that we have a static connection
+            prepare = connect.prepareStatement(insertQuery); // preparedStatement here
             prepare.setBytes(1,insertArtPiece.getArtPhoto()); // we need table column bytes for our local database
             prepare.setString(2,insertArtPiece.getArtistName());
             prepare.setString(3,insertArtPiece.getArtName());
+            prepare.setInt(4, 0);
             prepare.executeUpdate();
+
+
         }
         catch (Exception e) // thinking of having the SQLException for catch but -- eeeeeh too lazy
         {
             e.printStackTrace();
+        }
+        finally {
+            DBConnection.close(connect);
+            DBConnection.close(prepare);
         }
     }
 
@@ -76,13 +86,17 @@ public class ArtDatabaseRepo
 
         String retrieveQuery = "SELECT * FROM artist WHERE artist_name = ?";
 
+        Connection connect = null;
+        PreparedStatement retrieveDataQuery = null;
+        ResultSet result = null;
+
         try
         {
-            Connection connect = DBConnection.getConnection();
-            PreparedStatement insertQuery = connect.prepareStatement(retrieveQuery);
-            insertQuery.setString(1,artistName);
+            connect = DBConnection.getConnection();
+            retrieveDataQuery = connect.prepareStatement(retrieveQuery);
+            retrieveDataQuery.setString(1,artistName);
 
-            ResultSet result = insertQuery.executeQuery();
+            result = retrieveDataQuery.executeQuery();
 
             while (result.next())
             {
@@ -98,6 +112,11 @@ public class ArtDatabaseRepo
         {
             e.printStackTrace();
         }
+        finally {
+            DBConnection.close(connect);
+            DBConnection.close(retrieveDataQuery);
+            DBConnection.close(result);
+        }
 
         // We are returning tempPost -- if the user were to search a post from an artist have another List inside the servlet
         // to serve the posts -- ah yes I love Postal hahaha
@@ -112,17 +131,19 @@ public class ArtDatabaseRepo
     public List<ArtDomain> getPosts()
     {
         String retrieveQuery = "SELECT * FROM artist";
+        Connection connect = null;
+        PreparedStatement getPostsQuery = null;
+        ResultSet result = null;
+
 
         // I put it here because it is going to duplicate things if user refreshes page
         List<ArtDomain> posts = new ArrayList<>();
 
         try
         {
-            Connection connect = DBConnection.getConnection();
-            PreparedStatement insertQuery = connect.prepareStatement(retrieveQuery);
-
-
-            ResultSet result = insertQuery.executeQuery();
+            connect = DBConnection.getConnection();
+            getPostsQuery = connect.prepareStatement(retrieveQuery);
+            result = getPostsQuery.executeQuery();
 
             while (result.next())
             {
@@ -139,20 +160,31 @@ public class ArtDatabaseRepo
         {
             e.printStackTrace();
         }
+        finally {
+            DBConnection.close(connect);
+            DBConnection.close(getPostsQuery);
+            DBConnection.close(result);
+        }
         return posts;
     }
 
     // The reason why it is a set class is because I do not want any wasted memory
     // This will be called in ListArtistsServlet
     public Set<String> getArtists() {
+
+        Connection connect = null;
+        PreparedStatement getArtistQuery = null;
+        ResultSet resultSet = null;
+
         // Selects only the artist name column from every row in the table
         String retrieveArtistQuery = "SELECT artist_name FROM artist";
         Set<String> artists = new HashSet<>();
 
-        try (Connection connection = DBConnection.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(retrieveArtistQuery);
-             ResultSet resultSet = preparedStatement.executeQuery()) {
+        try {
 
+            connect = DBConnection.getConnection();
+            getArtistQuery = connect.prepareStatement(retrieveArtistQuery);
+            resultSet = getArtistQuery.executeQuery();
             // Loop through every single artist row in the database
             while (resultSet.next()) {
                 artists.add(resultSet.getString("artist_name"));
@@ -160,6 +192,11 @@ public class ArtDatabaseRepo
 
         } catch (Exception e) {
             e.printStackTrace();
+        }
+        finally {
+            DBConnection.close(connect);
+            DBConnection.close(getArtistQuery);
+            DBConnection.close(resultSet);
         }
 
         return artists;
@@ -171,22 +208,32 @@ public class ArtDatabaseRepo
     // This is for searching by artist name
     public String getArtist(String artistName) {
 
+        Connection connect = null;
+        PreparedStatement getSpecificArtistQuery = null;
+        ResultSet resultSet = null;
+
         // retrieve artist query limit 1 gives us only -- its there in the sql string
         String retrieveArtistQuery = "SELECT artist_name FROM artist WHERE artist_name = ? LIMIT 1";
 
-        try (Connection connection = DBConnection.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(retrieveArtistQuery)) {
+        try {
+            connect = DBConnection.getConnection();
+            getSpecificArtistQuery = connect.prepareStatement(retrieveArtistQuery);
 
-            preparedStatement.setString(1, artistName);
+            getSpecificArtistQuery.setString(1, artistName);
+            resultSet = getSpecificArtistQuery.executeQuery();
 
-            try (ResultSet resultSet = preparedStatement.executeQuery()) {
-                // if found return
-                if (resultSet.next()) {
-                    return resultSet.getString("artist_name"); // Returns the found name
-                }
+            // if found return
+            if (resultSet.next()) {
+                return resultSet.getString("artist_name"); // Returns the found name
             }
+
         } catch (Exception e) {
             e.printStackTrace();
+        }
+        finally {
+            DBConnection.close(connect);
+            DBConnection.close(getSpecificArtistQuery);
+            DBConnection.close(resultSet);
         }
 
         return null; // Returns null if the artist does not exist
