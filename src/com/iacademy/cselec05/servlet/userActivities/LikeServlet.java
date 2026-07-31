@@ -1,4 +1,4 @@
-package com.iacademy.cselec05.userActivities;
+package com.iacademy.cselec05.servlet.userActivities;
 
 import com.iacademy.cselec05.model.User;
 import com.iacademy.cselec05.util.DBConnection;
@@ -8,7 +8,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;

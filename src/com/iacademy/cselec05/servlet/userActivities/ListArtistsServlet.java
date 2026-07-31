@@ -1,4 +1,4 @@
-package com.iacademy.cselec05.userActivities;
+package com.iacademy.cselec05.servlet.userActivities;
 
 import com.iacademy.cselec05.factory.ObjectFactory;
 import com.iacademy.cselec05.repo.ArtDatabaseRepo;

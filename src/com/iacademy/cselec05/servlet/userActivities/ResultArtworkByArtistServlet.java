@@ -1,4 +1,4 @@
-package com.iacademy.cselec05.userActivities;
+package com.iacademy.cselec05.servlet.userActivities;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;

@@ -109,7 +109,7 @@
     <!-- User Activity Servlet -->
     <servlet>
         <servlet-name>UserActivityServlet</servlet-name>
-        <servlet-class>com.iacademy.cselec05.userActivities.UserActivityServlet</servlet-class>
+        <servlet-class>com.iacademy.cselec05.servlet.userActivities.UserActivityServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>UserActivityServlet</servlet-name>
@@ -119,7 +119,7 @@
     <!-- Insert Picture Servlet -->
     <servlet>
         <servlet-name>InsertPictureServlet</servlet-name>
-        <servlet-class>com.iacademy.cselec05.userActivities.InsertPictureServlet</servlet-class>
+        <servlet-class>com.iacademy.cselec05.servlet.userActivities.InsertPictureServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>InsertPictureServlet</servlet-name>
@@ -129,7 +129,7 @@
     <!-- Search Artworks by Artist Servlet -->
     <servlet>
         <servlet-name>SearchArtworkByArtistServlet</servlet-name>
-        <servlet-class>com.iacademy.cselec05.userActivities.SearchArtworkByArtistServlet</servlet-class>
+        <servlet-class>com.iacademy.cselec05.servlet.userActivities.SearchArtworkByArtistServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>SearchArtworkByArtistServlet</servlet-name>
@@ -139,7 +139,7 @@
     <!-- Result Artworks by Artist Servlet -->
     <servlet>
         <servlet-name>ResultArtworkByArtistServlet</servlet-name>
-        <servlet-class>com.iacademy.cselec05.userActivities.ResultArtworkByArtistServlet</servlet-class>
+        <servlet-class>com.iacademy.cselec05.servlet.userActivities.ResultArtworkByArtistServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ResultArtworkByArtistServlet</servlet-name>
@@ -149,7 +149,7 @@
     <!-- Search Artist Servlet -->
     <servlet>
         <servlet-name>SearchArtistServlet</servlet-name>
-        <servlet-class>com.iacademy.cselec05.userActivities.SearchArtistServlet</servlet-class>
+        <servlet-class>com.iacademy.cselec05.servlet.userActivities.SearchArtistServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>SearchArtistServlet</servlet-name>
@@ -159,7 +159,7 @@
     <!-- Result Artist Servlet -->
     <servlet>
         <servlet-name>ResultArtistServlet</servlet-name>
-        <servlet-class>com.iacademy.cselec05.userActivities.ResultArtistServlet</servlet-class>
+        <servlet-class>com.iacademy.cselec05.servlet.userActivities.ResultArtistServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ResultArtistServlet</servlet-name>
@@ -169,7 +169,7 @@
     <!-- List Servlet -->
     <servlet>
         <servlet-name>ListArtistsServlet</servlet-name>
-        <servlet-class>com.iacademy.cselec05.userActivities.ListArtistsServlet</servlet-class>
+        <servlet-class>com.iacademy.cselec05.servlet.userActivities.ListArtistsServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ListArtistsServlet</servlet-name>
@@ -179,7 +179,7 @@
     <!-- Like Servlet -->
     <servlet>
         <servlet-name>LikeServlet</servlet-name>
-        <servlet-class>com.iacademy.cselec05.userActivities.LikeServlet</servlet-class>
+        <servlet-class>com.iacademy.cselec05.servlet.userActivities.LikeServlet</servlet-class>
     </servlet>
 
     <servlet-mapping>
@@ -188,16 +188,17 @@
     </servlet-mapping>
 
     <!-- deprecated Servlet -->
+    <!--
     <servlet>
         <servlet-name>InsertServlet</servlet-name>
         <servlet-class>com.iacademy.cselec05.userActivities.InsertServlet</servlet-class>
     </servlet>
-    <!-- Insert jsp will appear here served by MyServlet - though this should be renamed to something else
+    Insert jsp will appear here served by MyServlet - though this should be renamed to something else
         Done - Juan Amado Cleto
-    -->
+
     <servlet-mapping>
         <servlet-name>InsertServlet</servlet-name>
         <url-pattern>/profile/user-activity/insert</url-pattern>
     </servlet-mapping>
-
+    -->
 </web-app>

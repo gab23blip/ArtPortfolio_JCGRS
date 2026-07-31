@@ -4,4 +4,6 @@ package com.iacademy.cselec05.dao;
 // TODO: delete this if we are not going to use this
 public class ImageDAO {
 
+
+
 }
