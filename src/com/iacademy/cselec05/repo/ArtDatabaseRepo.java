@@ -1,5 +1,6 @@
 package com.iacademy.cselec05.repo;
 
+import com.iacademy.cselec05.dao.ImageDAO;
 import com.iacademy.cselec05.model.*;
 import com.iacademy.cselec05.util.DBConnection;
 
@@ -32,6 +33,8 @@ public class ArtDatabaseRepo
     private String user = "student";
     private String password = "iacademy";
     */
+
+    private static ImageDAO imageDAO = new ImageDAO();
 
 
     // What this function does is insert Art Piece using a parameter insertArtPiece of class ArtDomain
@@ -132,43 +135,7 @@ public class ArtDatabaseRepo
     // So what this function is that retrieves all data from the table artist -- okay sounds good
     public List<ArtDomain> getPosts()
     {
-        String retrieveQuery = "SELECT * FROM artist";
-        Connection connect = null;
-        PreparedStatement getPostsQuery = null;
-        ResultSet result = null;
-
-
-        // I put it here because it is going to duplicate things if user refreshes page
-        List<ArtDomain> posts = new ArrayList<>();
-
-        try
-        {
-            connect = DBConnection.getConnection();
-            getPostsQuery = connect.prepareStatement(retrieveQuery);
-            result = getPostsQuery.executeQuery();
-
-            while (result.next())
-            {
-                ArtDomain retrievePosts = new ArtDomain();
-                retrievePosts.setArtistId(result.getInt("artist_id"));
-                retrievePosts.setArtName(result.getString("art_name"));
-                retrievePosts.setArtistName(result.getString("artist_name"));
-                retrievePosts.setArtPhoto(result.getBytes("art_photo")); // ANOTHER PROBLEM SOLVED
-                                                                                    // Replace this with a string for file path
-                retrievePosts.setLikeCount(result.getInt("like_count"));
-                posts.add(retrievePosts);
-            }
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-        }
-        finally {
-            DBConnection.close(connect);
-            DBConnection.close(getPostsQuery);
-            DBConnection.close(result);
-        }
-        return posts;
+        return imageDAO.getPosts();
     }
 
     // The reason why it is a set class is because I do not want any wasted memory

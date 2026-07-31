@@ -191,7 +191,7 @@
     <!--
     <servlet>
         <servlet-name>InsertServlet</servlet-name>
-        <servlet-class>com.iacademy.cselec05.userActivities.InsertServlet</servlet-class>
+        <servlet-class>com.iacademy.cselec05.userActivities(DEPRECATED).InsertServlet</servlet-class>
     </servlet>
     Insert jsp will appear here served by MyServlet - though this should be renamed to something else
         Done - Juan Amado Cleto
