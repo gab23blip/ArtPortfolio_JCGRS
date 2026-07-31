@@ -24,8 +24,6 @@
 
     <!-- TWEAK 3: An empty container styled by your CSS where the JS will inject the merged data -->
     <div id="goThroughArtWork"></div>
-</body>
-</html>
 
     <!--
     <c:set var = "show" value="${not empty postAspects}" />
@@ -46,5 +44,7 @@
         </c:forEach>
     </div>
     -->
+
+    <%@ include file="footer.jsp" %>
 </body>
 </html>

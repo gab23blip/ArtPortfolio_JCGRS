@@ -21,5 +21,6 @@
     <a href = "${Insert}">Photo Submission</a>
     <a href = "${search}">Artist Viewing</a>
     <a href = "${home}">Home Feed</a>
+    <%@ include file="footer.jsp" %>
 </body>
 </html>

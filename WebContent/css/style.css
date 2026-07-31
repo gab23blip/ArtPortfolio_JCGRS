@@ -104,47 +104,131 @@ body {
     z-index: 1000;
     display: flex;
     align-items: center;
-    padding: 10px;
+    padding: 10px 20px;
+    gap: 20px;
     box-sizing: border-box;
+    background: linear-gradient(90deg, var(--window-header), var(--window-bg));
+    border-bottom: 3px solid var(--border-dark);
+}
+
+.nav-header h2 {
+    margin: 0;
+    color: var(--text-header);
 }
 
 /* Main feed container, keeps everything centered like Instagram */
 .feed-container {
-    max-width: 600px;
+    max-width: 960px;
     margin: 20px auto; /* Centers the box */
     padding: 10px;
+    display: grid;
+    gap: 24px;
 }
 
-/* =========================================
-   View Artist work component styling
-   ========================================= */
-/* Based on your specific requirement for the artist's work */
+.feed-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+}
+
+.feed-card {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    border-radius: 14px;
+    background-color: var(--window-bg);
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.18);
+}
+
+.welcome-card,
 .artwork-card {
     display: flex;
     flex-direction: column;
+    overflow: hidden;
+    border-radius: 14px;
+    background-color: var(--window-bg);
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.18);
+}
+
+.welcome-card .welcome-panel,
+.artwork-card .artwork-info {
+    padding: 18px;
+    background-color: var(--bg-main);
+}
+
+.welcome-panel p {
+    margin: 0 0 12px;
+    line-height: 1.5;
+}
+
+.status-chip {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4px 10px;
+    border-radius: 12px;
+    background-color: var(--btn-bg);
+    color: var(--btn-text);
+    font-size: 0.8rem;
+    font-weight: bold;
 }
 
 .artwork-card img {
     width: 100%;
-    height: auto;
-    border: 2px solid var(--border-dark); /* Keeps the image contained */
+    height: 360px;
+    object-fit: cover;
+    border-bottom: 2px solid var(--border-dark);
     display: block;
+    transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.artwork-card:hover img,
+.feed-card:hover img {
+    transform: scale(1.02);
+}
+
+.feed-card img {
+    width: 100%;
+    height: 280px;
+    object-fit: cover;
+    border-bottom: 2px solid var(--border-dark);
+    display: block;
+    transition: transform 0.3s ease, filter 0.3s ease;
 }
 
 .artwork-info {
-    padding: 10px;
-    background-color: var(--bg-main);
-    border-top: 2px solid var(--border-dark);
+    border-top: none;
 }
 
 .artist-name {
-    font-size: 0.9em;
+    font-size: 1rem;
     font-weight: bold;
-    margin-bottom: 5px;
+    margin-bottom: 6px;
+    color: var(--text-header);
 }
 
 .artwork-title {
+    font-size: 1.05rem;
     font-style: italic;
+    margin-bottom: 10px;
+}
+
+.artwork-info p {
+    margin: 0;
+    color: var(--text-main);
+}
+
+@media (max-width: 760px) {
+    .feed-container {
+        padding: 8px;
+    }
+    .feed-grid {
+        grid-template-columns: 1fr;
+    }
+    .artwork-card img,
+    .feed-card img {
+        height: 260px;
+    }
 }
 
 /* =========================================
@@ -171,121 +255,132 @@ body::before {
 }
 
 /* New Stuff for Forms */
-/* Reset and Base Styling */
-body {
-    background-color: #1a1a1a;
-    color: #dfdfdf;
-    font-family: "Courier New", Courier, monospace;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 50px 20px;
-    margin: 0;
-}
-
 /* Form Container */
 form {
-    background-color: #2c2c2c;
-    border: 2px solid #555;
-    padding: 30px;
-    width: 100%;
-    max-width: 450px;
-    /* Harsh drop shadow for an industrial, rigid feel */
-    box-shadow: 6px 6px 0px #0a0a0a; 
+   background-color: #2c2c2c;
+   border: 2px solid #555;
+   padding: 30px;
+   width: 100%;
+   max-width: 450px;
+   /* Harsh drop shadow for an industrial, rigid feel */
+   box-shadow: 6px 6px 0px #0a0a0a; 
 }
 
 /* Typography */
 label {
-    display: block;
-    font-size: 14px;
-    font-weight: bold;
-    text-transform: uppercase;
-    letter-spacing: 1.5px;
-    margin-bottom: 12px;
-    color: #9e9e9e;
+   display: block;
+   font-size: 14px;
+   font-weight: bold;
+   text-transform: uppercase;
+   letter-spacing: 1.5px;
+   margin-bottom: 12px;
+   color: #9e9e9e;
 }
 
 /* Input Fields */
 input[type="text"] {
-    width: 100%;
-    background-color: #111;
-    border: 1px solid #666;
-    color: #fff;
-    padding: 12px;
-    font-family: inherit;
-    font-size: 16px;
-    box-sizing: border-box;
-    margin-bottom: 20px;
-    border-radius: 0; /* Keeps the edges sharp */
+   width: 100%;
+   background-color: #111;
+   border: 1px solid #666;
+   color: #fff;
+   padding: 12px;
+   font-family: inherit;
+   font-size: 16px;
+   box-sizing: border-box;
+   margin-bottom: 20px;
+   border-radius: 0; /* Keeps the edges sharp */
 }
 
 input[type="text"]:focus {
-    outline: none;
-    border-color: #c0392b; /* Subtle red accent on focus */
-    background-color: #181818;
+   outline: none;
+   border-color: #c0392b; /* Subtle red accent on focus */
+   background-color: #181818;
 }
 
 /* Utilitarian Button */
 button#getFromDatabase {
-    width: 100%;
-    background-color: #333;
-    color: #fff;
-    border: 2px solid #666;
-    padding: 12px;
-    font-family: inherit;
-    font-weight: bold;
-    font-size: 16px;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    cursor: pointer;
-    transition: all 0.2s ease-in-out;
+   width: 100%;
+   background-color: #333;
+   color: #fff;
+   border: 2px solid #666;
+   padding: 12px;
+   font-family: inherit;
+   font-weight: bold;
+   font-size: 16px;
+   text-transform: uppercase;
+   letter-spacing: 2px;
+   cursor: pointer;
+   transition: all 0.2s ease-in-out;
 }
 
 button#getFromDatabase:hover {
-    background-color: #c0392b;
-    border-color: #c0392b;
-    color: #111;
+   background-color: #c0392b;
+   border-color: #c0392b;
+   color: #111;
 }
 
 /* Styling for the results block (when you uncomment the JSTL) */
 #goThroughArtWork {
-    margin-top: 40px;
-    width: 100%;
-    max-width: 450px;
-    background-color: #2c2c2c;
-    border: 2px solid #555;
-    padding: 20px;
-    box-shadow: 6px 6px 0px #0a0a0a;
+   margin-top: 40px;
+   width: 100%;
+   max-width: 450px;
+   background-color: #2c2c2c;
+   border: 2px solid #555;
+   padding: 20px;
+   box-shadow: 6px 6px 0px #0a0a0a;
 }
 
 #goThroughArtWork p {
-    margin: 0;
-    padding: 12px 0;
-    border-bottom: 1px dashed #555;
+   margin: 0;
+   padding: 12px 0;
+   border-bottom: 1px dashed #555;
 }
 
 #goThroughArtWork p:last-child {
-    border-bottom: none;
+   border-bottom: none;
 }
 
 #goThroughArtWork a {
-    color: #dfdfdf;
-    text-decoration: none;
-    font-weight: bold;
-    font-size: 15px;
-    display: block;
-    transition: color 0.2s;
+   color: #dfdfdf;
+   text-decoration: none;
+   font-weight: bold;
+   font-size: 15px;
+   display: block;
+   transition: color 0.2s;
 }
 
 #goThroughArtWork a::before {
-    content: "> "; /* Adds a terminal-style caret before the artist name */
-    color: #666;
+   content: "> "; /* Adds a terminal-style caret before the artist name */
+   color: #666;
 }
 
 #goThroughArtWork a:hover {
-    color: #c0392b;
+   color: #c0392b;
 }
 
 #goThroughArtWork a:hover::before {
-    color: #c0392b;
+   color: #c0392b;
 }
+
+/* Footer styles */
+.site-footer {
+   background: linear-gradient(90deg, rgba(36,0,70,0.9), rgba(225,0,152,0.9));
+   color: var(--text-header);
+   padding: 12px 20px;
+   position: relative;
+   bottom: 0;
+   width: 100%;
+}
+
+.footer-inner {
+   max-width: 960px;
+   margin: 0 auto;
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+}
+
+.footer-left, .footer-right {
+   font-size: 0.9rem;
+}
+

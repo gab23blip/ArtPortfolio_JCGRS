@@ -22,5 +22,6 @@
         <p>${Feed.artName}</p>
         <p>${Feed.artistName}</p>
     </c:forEach>
+    <%@ include file="footer.jsp" %>
 </body>
 </html>
