@@ -1,15 +1,9 @@
 package com.iacademy.cselec05.repo;
 
+import com.iacademy.cselec05.dao.ArtistDAO;
 import com.iacademy.cselec05.dao.ImageDAO;
 import com.iacademy.cselec05.model.*;
-import com.iacademy.cselec05.util.DBConnection;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -34,42 +28,15 @@ public class ArtDatabaseRepo
     private String password = "iacademy";
     */
 
-    private static ImageDAO imageDAO = new ImageDAO();
+    private static final ImageDAO imageDAO = new ImageDAO();
+    private static final ArtistDAO artistDao = new ArtistDAO();
 
 
     // What this function does is insert Art Piece using a parameter insertArtPiece of class ArtDomain
     // changed to uploadArt because this is what we are essentially doing 'uploading' and it is more meaningful
     public void uploadArt(ArtDomain insertArtPiece)
     {
-        // Set to null because we are going to utilize a close function from DBConnect
-        Connection connect = null;
-        PreparedStatement prepare = null;
-        // good we have this statement
-        String insertQuery = "INSERT INTO artist (art_photo, artist_name, art_name) VALUES(?,?,?)";
-
-        // will keep try catch -- it is a good habit to have  -- good job!
-        try
-        {
-            // removed class for name because it is already declared inside the DBConnection
-            connect = DBConnection.getConnection(); // Okay this is good that we have a static connection
-            prepare = connect.prepareStatement(insertQuery); // preparedStatement here
-            prepare.setBytes(1,insertArtPiece.getArtPhoto()); // we need table column bytes for our local database
-            prepare.setString(2,insertArtPiece.getArtistName());
-            prepare.setString(3,insertArtPiece.getArtName());
-            // prepare.setInt(4, 0);
-            prepare.executeUpdate();
-
-
-        }
-        catch (SQLException e) // thinking of having the SQLException for catch but -- eeeeeh too lazy
-        {
-            e.printStackTrace();
-            System.out.println(e.getMessage());
-        }
-        finally {
-            DBConnection.close(connect);
-            DBConnection.close(prepare);
-        }
+        imageDAO.upload(insertArtPiece);
     }
 
     // This one should be renamed to retrieve data -- but for a project I will let this slide
@@ -80,52 +47,7 @@ public class ArtDatabaseRepo
     // Cleared up a warning because this should be List<ArtDomain>
     public List<ArtDomain> retrieveDataFromArtist(String artistName)
     {
-        // Alright for this one it we should have the List post here
-        // This is because if we were to use post -- the list -- it is redundant
-        // no --- it should not be there. Instead we should opt for volatile memory purely because
-        // if we think about it we are only listing what the art work is and it should not be remembered by the machine.
-        // Therefore the solution for this is to have a volatile List inside this function that is only there to retrieve
-        // Once the server refreshes then it can shove off. However there is a danger here if it is volatile then there is
-        // this danger of memory leakage -- we don't want but for this project sure
-        List<ArtDomain> tempPost = new ArrayList<>();
-
-        String retrieveQuery = "SELECT * FROM artist WHERE artist_name = ?";
-
-        Connection connect = null;
-        PreparedStatement retrieveDataQuery = null;
-        ResultSet result = null;
-
-        try
-        {
-            connect = DBConnection.getConnection();
-            retrieveDataQuery = connect.prepareStatement(retrieveQuery);
-            retrieveDataQuery.setString(1,artistName);
-
-            result = retrieveDataQuery.executeQuery();
-
-            while (result.next())
-            {
-                ArtDomain retrievePosts = new ArtDomain();
-                retrievePosts.setArtName(result.getString("art_name"));
-                retrievePosts.setArtistName(result.getString("artist_name"));
-                retrievePosts.setArtPhoto(result.getBytes("art_photo"));
-                retrievePosts.setLikeCount(result.getInt("like_count"));
-                tempPost.add(retrievePosts);
-            }
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-        }
-        finally {
-            DBConnection.close(connect);
-            DBConnection.close(retrieveDataQuery);
-            DBConnection.close(result);
-        }
-
-        // We are returning tempPost -- if the user were to search a post from an artist have another List inside the servlet
-        // to serve the posts -- ah yes I love Postal hahaha
-        return tempPost;
+        return imageDAO.getSpecificDataFromArtist(artistName);
 
     }
 
@@ -142,34 +64,7 @@ public class ArtDatabaseRepo
     // This will be called in ListArtistsServlet
     public Set<String> getArtists() {
 
-        Connection connect = null;
-        PreparedStatement getArtistQuery = null;
-        ResultSet resultSet = null;
-
-        // Selects only the artist name column from every row in the table
-        String retrieveArtistQuery = "SELECT artist_name FROM artist";
-        Set<String> artists = new HashSet<>();
-
-        try {
-
-            connect = DBConnection.getConnection();
-            getArtistQuery = connect.prepareStatement(retrieveArtistQuery);
-            resultSet = getArtistQuery.executeQuery();
-            // Loop through every single artist row in the database
-            while (resultSet.next()) {
-                artists.add(resultSet.getString("artist_name"));
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        finally {
-            DBConnection.close(connect);
-            DBConnection.close(getArtistQuery);
-            DBConnection.close(resultSet);
-        }
-
-        return artists;
+        return artistDao.getArtists();
     }
 
     // And besides we are only aiming to get the String here to list the artists
@@ -177,36 +72,6 @@ public class ArtDatabaseRepo
     // a string -- this function returns a string named artistName.
     // This is for searching by artist name
     public String getArtist(String artistName) {
-
-        Connection connect = null;
-        PreparedStatement getSpecificArtistQuery = null;
-        ResultSet resultSet = null;
-
-        // retrieve artist query limit 1 gives us only -- its there in the sql string
-        String retrieveArtistQuery = "SELECT artist_name FROM artist WHERE artist_name = ? LIMIT 1";
-
-        try {
-            connect = DBConnection.getConnection();
-            getSpecificArtistQuery = connect.prepareStatement(retrieveArtistQuery);
-
-            getSpecificArtistQuery.setString(1, artistName);
-            resultSet = getSpecificArtistQuery.executeQuery();
-
-            // if found return
-            if (resultSet.next()) {
-                return resultSet.getString("artist_name"); // Returns the found name
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        finally {
-            DBConnection.close(connect);
-            DBConnection.close(getSpecificArtistQuery);
-            DBConnection.close(resultSet);
-        }
-
-        return null; // Returns null if the artist does not exist
+        return artistDao.getSpecificArtist(artistName);
     }
-
 }
