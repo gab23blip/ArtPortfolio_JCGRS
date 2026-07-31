@@ -102,7 +102,8 @@ public class LikeServlet extends HttpServlet {
 
             }
 
-        } catch (SQLException sex) {
+        }
+        catch (SQLException sex) {
 
             sex.printStackTrace();
             response.getWriter().println("SQL Exception!");

@@ -49,6 +49,7 @@ public class InsertPictureServlet extends HttpServlet {
     // not going insane. Proper naming conventions = what this thing (variable or function or class) does.
     // I will change the unusualAction into something more meaningful
     // TODO: Investigate what unusualAction does -- REMOVED because we don't need it anymore
+    // TODO: remove the blob for it will bloat the table or the database LMAO
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         
@@ -64,7 +65,8 @@ public class InsertPictureServlet extends HttpServlet {
         ArtDatabaseRepo dataRepo = objectFactory.getArtRepistory();
         dataRepo.uploadArt(domain);
         // This will be in the homefeed
-        request.getRequestDispatcher("/WEB-INF/pages/home.jsp").forward(request,response);
+        //request.getRequestDispatcher("/WEB-INF/pages/home.jsp").forward(request,response);
+        response.sendRedirect(request.getContextPath() + "/home");
 
     }
 

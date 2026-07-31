@@ -63,4 +63,8 @@ public class ArtDomain
         this.artistId = artistId;
     }
 
+    public int getArtistId() {
+        return artistId;
+    }
+
 }

@@ -6,6 +6,7 @@ import com.iacademy.cselec05.util.DBConnection;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -41,7 +42,7 @@ public class ArtDatabaseRepo
         Connection connect = null;
         PreparedStatement prepare = null;
         // good we have this statement
-        String insertQuery = "INSERT INTO artist(art_photo,artist_name,art_name, like_count) VALUES(?,?,?, ?)";
+        String insertQuery = "INSERT INTO artist (art_photo, artist_name, art_name) VALUES(?,?,?)";
 
         // will keep try catch -- it is a good habit to have  -- good job!
         try
@@ -52,14 +53,15 @@ public class ArtDatabaseRepo
             prepare.setBytes(1,insertArtPiece.getArtPhoto()); // we need table column bytes for our local database
             prepare.setString(2,insertArtPiece.getArtistName());
             prepare.setString(3,insertArtPiece.getArtName());
-            prepare.setInt(4, 0);
+            // prepare.setInt(4, 0);
             prepare.executeUpdate();
 
 
         }
-        catch (Exception e) // thinking of having the SQLException for catch but -- eeeeeh too lazy
+        catch (SQLException e) // thinking of having the SQLException for catch but -- eeeeeh too lazy
         {
             e.printStackTrace();
+            System.out.println(e.getMessage());
         }
         finally {
             DBConnection.close(connect);
@@ -152,6 +154,7 @@ public class ArtDatabaseRepo
                 retrievePosts.setArtName(result.getString("art_name"));
                 retrievePosts.setArtistName(result.getString("artist_name"));
                 retrievePosts.setArtPhoto(result.getBytes("art_photo")); // ANOTHER PROBLEM SOLVED
+                                                                                    // Replace this with a string for file path
                 retrievePosts.setLikeCount(result.getInt("like_count"));
                 posts.add(retrievePosts);
             }
